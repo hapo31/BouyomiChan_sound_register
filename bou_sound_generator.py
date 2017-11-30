@@ -51,6 +51,9 @@ def main():
         # サウンドファイルからレコードを生成する
         for file in files:
             dirname = os.path.split(dir)[0]
+            # ディレクトリ名が空になってしまったら元に戻す
+            if not dirname:
+                dirname = dir
             # 先頭のカレントディレクトリマークを削除
             if dirname[0:2] == ".\\" or dirname[0:2] == "./":
                 dirname = dirname[2:]
