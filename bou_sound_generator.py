@@ -4,12 +4,16 @@ import os
 
 class BouyomiDicRecord():
     def __init__(self, priority, lang, word, tag):
+        # 優先度
         if isinstance(priority, str):
             self.priority = int(priority, 10)
         else:
             self.priority = priority
+        # 言語("N" or "E")
         self.lang = lang
+        # 置換前ワード
         self.word = word
+        # 置換後ワード
         self.tag = tag
 
     def __str__(self):
@@ -51,7 +55,14 @@ def main():
             if dirname[0:2] == ".\\" or dirname[0:2] == "./":
                 dirname = dirname[2:]
             print("%s/%s" % (dirname, file))
-            filename = ".".join(file.split(".")[:-1])
+            fsplited = file.split(".")
+            filename = ""
+            if len(fsplited) == 1:
+                filename = file
+            else:
+                # 拡張子の除去
+                filename = ".".join(fsplited[:-1])
+
             dic_list.append(BouyomiDicRecord(
                 priority, "N", filename, "(SoundW %s/%s)" % (dirname, file)))
         dic_list.sort(reverse=True, key=lambda d: d.priority)
